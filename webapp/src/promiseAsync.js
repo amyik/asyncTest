@@ -1,7 +1,28 @@
-import './promiseAsync.js'
-import './webSocket.js'
-
 import axios from 'axios';
+
+document.querySelector('#btnGetWithStatus').addEventListener('click', event => {
+    oneStepWithStatus();
+});
+
+document.querySelector('#btnGetWithOutStatus').addEventListener('click', event => {
+    oneStepWithoutStatus();
+});
+
+document.querySelector('#btnGetWith2StepLegacy').addEventListener('click', event => {
+    twoStepByPromisePatternAnonymousFunction();
+});
+
+document.querySelector('#btnGetWith2StepPromise').addEventListener('click', event => {
+    twoStepByPromisePattern();
+});
+
+document.querySelector('#btnGetWith2StepAsync').addEventListener('click', event => {
+    twoStepAsyncAwait();
+});
+
+document.querySelector('#btnGetWith2StepAsyncAntiPattern').addEventListener('click', event => {
+    twoStepAsyncAwaitAntiPattern();
+});
 
 function oneStepWithStatus() {
     const pipelineListDiv = document.querySelector('#pipelineListDiv');
@@ -10,12 +31,6 @@ function oneStepWithStatus() {
         drawPipelineList(res.data)
     });
 }
-
-document.querySelector('#btnGetWithStatus').addEventListener('click', event => {
-
-    oneStepWithStatus();
-
-});
 
 function oneStepWithoutStatus() {
     const pipelineListDiv = document.querySelector('#pipelineListDiv');
@@ -26,9 +41,6 @@ function oneStepWithoutStatus() {
         }.bind(this));
 }
 
-document.querySelector('#btnGetWithOutStatus').addEventListener('click', event => {
-    oneStepWithoutStatus();
-});
 
 function refreshStatus(datum, status) {
     datum.status = status;
@@ -77,7 +89,7 @@ function twoStepByPromisePattern() {
             }))
     });
 
-   promise.catch(err => {
+    promise.catch(err => {
         alert('error :' + err)
     });
 }
@@ -112,23 +124,6 @@ async function twoStepAsyncAwaitAntiPattern() {
     }
 }
 
-
-document.querySelector('#btnGetWith2StepLegacy').addEventListener('click', event => {
-    twoStepByPromisePatternAnonymousFunction();
-});
-
-document.querySelector('#btnGetWith2StepPromise').addEventListener('click', event => {
-    twoStepByPromisePattern();
-});
-
-document.querySelector('#btnGetWith2StepAsync').addEventListener('click', event => {
-    twoStepAsyncAwait();
-});
-
-document.querySelector('#btnGetWith2StepAsyncAntiPattern').addEventListener('click', event => {
-    twoStepAsyncAwaitAntiPattern();
-});
-
 function getMessage(datum) {
     return `<h3> project: ${datum.projectId},  name: ${datum.name},    status:   ${datum.status} </h3>`;
 }
@@ -146,7 +141,6 @@ function drawPipelineList(data) {
         pipelineListDiv.appendChild(htmlDivElement)
     }
 }
-
 
 document.querySelector('#clear').addEventListener('click', event => {
     const pipelineListDiv = document.querySelector('#pipelineListDiv');
